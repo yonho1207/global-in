@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<school>
+    <subject>
+        <title>Javascript+jQuery+Ajax</title>
+        <time>매주 월/수/금 오후 7시30분~10시20분</time>
+        <teacher>주영아</teacher>
+    </subject>
+</school>

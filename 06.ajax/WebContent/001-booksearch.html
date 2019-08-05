@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="js/jquery.xml2json.js"></script>
+
+<!-- 템플릿 플러그인 -->
+<script type="text/javascript"
+	src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+
+<script type="text/x=jquery-tmpl" id="itemTemplate">
+	<li>{{html title}}</li>
+		
+	</script>
+	<script type="text/javascript">
+		$(function(){
+			
+			$("form[name='form1']").submit(function(){
+				event.preventDefault();
+				
+				var keyword= $("#keyword").val();
+				
+				if(!keyword){
+					alert("검색어를 입력하세요");
+					return false;
+					
+				}
+				
+				$.get("booksearch?keyword="+keyword,function(data){
+					var json=$.xml2json(data);
+					var item=json.channel.item;
+					
+					var div=$("#itemTemplate").tmpl(item);
+					
+					$("#list").append(div);
+					
+					
+				}).fail(function(){
+					
+					
+					
+				});
+				
+				
+			});
+			
+			
+		});
+	
+	</script>
+</head>
+<body>
+	<h1>책검색</h1>
+	<form name = "form1">
+		검색어를 입력하세요.<input type="text" id="keyword" name="keyword"/>
+						<input type="submit" value="검색"/>
+	</form>
+	<ul id="list">
+	
+	</ul>
+
+</body>
+</html>

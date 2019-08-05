@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		$("#mybtn").click(function(){
+			
+			$.ajax({	
+				url:"ajax/json/05.json",
+				type:"get",
+				dataType:"json",
+				timeout:30000,
+				cache:false,
+				success:function(json){
+					
+						var subject = json.school.subject;
+						
+						for(var i =0; i<subject.length;i++){
+							
+							var title = subject[i].title;
+							var time = subject[i].time;
+							var teacher = subject[i].teacher;
+							
+							var div = $("<div>");
+							var p1= $("<p>").html(title);
+							var p2= $("<p>").html(time);
+							var p3= $("<p>").html(teacher);
+							
+							div.append(p1).append(p2).append(p3);
+							
+							$("#result").append(div);
+							
+						}
+						
+						
+						
+					
+					
+					
+					
+				},
+				error:function(xhr,textStatus,errorThrown){
+					$("#result").html(
+	"<div>"+textStatus+"(HTTP-"+xhr.status+"/"+errorThrown+")<div>");
+					
+				}
+				
+			});
+			
+		});
+		
+	});
+
+</script>
+</head>
+<body>
+	<h1>$.ajax() 함수를 사용한 텍스트 읽기</h1>
+	<div>
+		<input type="button" value="json 파일 가져오기" id="mybtn"/>
+		
+	</div>
+	<div id="result">
+		
+	</div>
+</body>
+</html>

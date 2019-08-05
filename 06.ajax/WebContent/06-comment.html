@@ -1,0 +1,125 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<style>
+body {
+  font-family: "Times New Roman", Times, serif;
+} 
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+#home {
+  left: 0px;
+  width: 46px;
+  background: url('ajax/text/image.jpg');
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type=textarea], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+li {
+  background-color: lightblue;
+}
+
+li {
+  color: red;
+  text-align: center;
+}
+
+li {
+  font-family: verdana;
+  font-size: 20px;
+}
+</style>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Insert title here</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- 템플릿 플러그인 -->
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+	
+	<script type="text/x=jquery-tmpl" id="itemTemplate">
+		<li>${num},${writer},${content},${datetime}</li>
+	</script>
+	<script type="text/javascript">
+		$(function(){
+			$.get("comment_List",{},function(data){
+				
+				$(data).find("comment").each(function(){
+					var num = $(this).find("num").text();
+					var writer = $(this).find("writer").text();
+					var content = $(this).find("content").text();
+					var datetime = $(this).find("datetime").text();
+					
+					var li_data = {
+						"num":num,
+						"writer":writer,
+						"content":content,
+						"datetime":datetime
+							
+					};
+					var new_li = $("#itemTemplate").tmpl(li_data);
+					
+					$("#comment_List").prepend(new_li);
+				});
+				
+			}).fail(function(){});
+			
+			
+			
+		});
+	</script>
+</head>
+<body>
+<label>Ajax Comment</label>
+		<form id="comment_form">
+		<label for="user_name">작성자</label> 
+		<input type="text" name="user_name" id="user_name"  /> 
+		
+		<input type="submit" value="저장하기" /> <br /><br /> 
+		<label for="comment">덧글 내용</label>
+		<textarea name="comment" id="comment" rows="10" cols="20">
+		</textarea>
+		
+		</form>
+		
+		<ul id="comment_List">
+		<!-- 여기에 동적 생성 요소 들어감 -->
+		</ul>
+
+
+</body>
+</html>
