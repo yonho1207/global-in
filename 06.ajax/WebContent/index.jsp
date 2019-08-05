@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>조연호`s garden</h3>
+	<h3>조연호`s gardenzz</h3>
 	
 		
 		<a href="comment_move">댓글쓰기 화면으로</a>
